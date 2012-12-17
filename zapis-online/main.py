@@ -11,10 +11,19 @@ def app(environ, start_response):
     user = os.getlogin()
     user_id = os.geteuid()
     browser = environ['HTTP_USER_AGENT']
-    response_body = 'Local time: %s\nUTC: %s\nUser: %s\nUser ID: %s\nUser agent: %s' % (
+    response_body = '''
+        <html>
+        <body>
+        Local time: %s<br>
+        UTC: %s<br>
+        User: %s<br>
+        User ID: %s<br>
+        User agent: %s
+        </body>
+        </html>''' % (
         local_time, gmt_time, user, user_id, browser)
     status = '200 OK'
-    response_headers = [('Content-Type', 'text/plain'),
+    response_headers = [('Content-Type', 'text/html'),
                         ('Content-Length', str(len(response_body)))]
     start_response(status, response_headers)
     return [response_body]
