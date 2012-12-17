@@ -10,8 +10,9 @@ def app(environ, start_response):
     gmt_time = strftime(time_format, gmtime())
     user = os.getlogin()
     user_id = os.geteuid()
-    response_body = 'Local time: %s\nUTC: %s\nUser: %s\nUser ID: %s' % (
-        local_time, gmt_time, user, user_id)
+    browser = environ['HTTP_USER_AGENT']
+    response_body = 'Local time: %s\nUTC: %s\nUser: %s\nUser ID: %s\nUser agent: %s' % (
+        local_time, gmt_time, user, user_id, browser)
     status = '200 OK'
     response_headers = [('Content-Type', 'text/plain'),
                         ('Content-Length', str(len(response_body)))]
