@@ -1,4 +1,3 @@
-
 # Django settings for zo project.
 # -*- coding: utf-8 -*-
 
