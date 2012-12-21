@@ -11,7 +11,7 @@ To install app you need do next steps:
     Go to you projects dir, and clone git
     git clone https://github.com/learnpython/team-beta.git
 
-    Next, go to team-beta, and create virtual enviroment
+    Next, go to team-beta, and create virtual environment
     cd team-beta && virtualenv env
     and install requirements
     source env/bin/activate 
@@ -26,7 +26,7 @@ Run:
     cd zo && gunicorn_django -b 0.0.0.0:8000
     
     Open your Web browser and go to http://127.0.0.1:8000
-    Thats all!
+    That's all!
     
     To join as administrator, go to http://127.0.0.1:8000/admin and input 
         user: admin
