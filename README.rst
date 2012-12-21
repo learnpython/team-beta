@@ -1,11 +1,11 @@
-About:
+**About:**
     Some info
 
-Requirements:
+**Requirements:**
     OS requirements - Python 2.7, python-virtualenv, python-imaging
     ENV - all from requirements.txt file
 
-Install:
+**Install:**
 
 To install app you need do next steps:
     Go to you projects dir, and clone git
