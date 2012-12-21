@@ -1,9 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<title>{{ flatpage.title }}</title>
-	</head>
-	<body>
-		{{ flatpage.content }}
-	</body>
+
+<head>
+    <title>{{ flatpage.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link rel="stylesheet" href="https://app.divshot.com/css/divshot-util.css">
+    <link rel="stylesheet" href="https://app.divshot.com/css/bootstrap.css">
+    <link rel="stylesheet" href="https://app.divshot.com/css/bootstrap-responsive.css">
+    <script src="https://app.divshot.com/js/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1 class="align-center">Запись онлайн</h1>
+    </div>
+    <div class="container">{{ flatpage.content }}</div>
+    <p class="text-info lead align-center">Записаться на прием к стоматологу, стилисту, парикмахеру или юристу в
+        два клика</p>
+</div>
+<script src="https://app.divshot.com/js/bootstrap.min.js"></script>
+</body>
+
 </html>
