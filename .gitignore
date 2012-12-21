@@ -8,3 +8,4 @@ $ cat .gitignore
 .ropeprojects
 env
 zo/zo/static/admin
+pip
