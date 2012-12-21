@@ -17,6 +17,8 @@ To install app you need do next steps:
     source env/bin/activate 
     pip install -r requirements.txt
 
+    download http://twitter.github.com/bootstrap/index.html imto /static/
+
     Next, sync projects
     python zo/manage.py syncdb
     python zo/manage.py collectstatic
