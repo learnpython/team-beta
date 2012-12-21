@@ -8,4 +8,5 @@ $ cat .gitignore
 .ropeprojects
 env
 zo/zo/static/admin
+zo/zo/static/tiny_mce
 pip
