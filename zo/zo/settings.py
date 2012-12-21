@@ -147,8 +147,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    #Добавим flatpages
+    # Добавим flatpages
     'django.contrib.flatpages',
+    # Добавим поддержку tinymce
+    'tinymce',
+    'flatpages_tinymce',
 )
 
 # A sample logging configuration. The only tangible logging

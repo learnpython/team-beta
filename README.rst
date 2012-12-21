@@ -27,4 +27,7 @@ Run:
     
     Open your Web browser and go to http://127.0.0.1:8000
     Thats all!
-
+    
+    To join as administrator, go to http://127.0.0.1:8000/admin and input 
+        user: admin
+        pass: nimda
