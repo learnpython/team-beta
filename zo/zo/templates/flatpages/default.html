@@ -52,6 +52,14 @@
                     </li>
                 </ul>
             </div>
+            {% else %}
+            <div class="nav-collapse">
+                <!-- The drop down menu -->
+                <ul class="nav pull-right">
+                    <li><a href="#user_profile">Вы вошли как {{ user.username }}.</a></li>
+                    <li><a href="/sign_out">Выйти</a></li>
+                </ul>
+            </div>
             {% endif %}
         </div>
     </div>
