@@ -6,6 +6,7 @@ $ cat .gitignore
 .pydevproject
 .settings*
 .ropeprojects
+.idea
 env
 zo/zo/static/admin
 zo/zo/static/tiny_mce
