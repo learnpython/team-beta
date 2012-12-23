@@ -132,7 +132,7 @@ WSGI_APPLICATION = 'zo.wsgi.application'
 
 TEMPLATE_DIRS = (
     #расположение наших темплейтов
-    os.path.join(PROJECT_PATH, "templates"),
+    os.path.join(PROJECT_PATH, "templates", "flatpages"),
 )
 
 
@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     # Добавим поддержку tinymce
     'tinymce',
+    'zo',
     'flatpages_tinymce',
 )
 

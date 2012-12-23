@@ -7,6 +7,7 @@ from django.conf import settings
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^reg/$', 'zo.views.reg', name='reg'),
 )
 if settings.DEBUG:
     urlpatterns = patterns('',
