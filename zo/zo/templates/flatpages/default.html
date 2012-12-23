@@ -57,7 +57,7 @@
                 <!-- The drop down menu -->
                 <ul class="nav pull-right">
                     <li><a href="#user_profile">Вы вошли как {{ user.username }}.</a></li>
-                    <li><a href="/sign_out">Выйти</a></li>
+                    <li><a href="{% url logout %}">Выйти</a></li>
                 </ul>
             </div>
             {% endif %}
