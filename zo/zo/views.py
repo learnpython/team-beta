@@ -6,20 +6,5 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 
-def reg(request):
+def register(request):
     return render(request, 'register.html')
-
-
-# def feed(request):
-#     if request.method == 'POST':
-#         form = FeedbackForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Спасибо за отзыв! Ваш отзыв скоро будет добавлен.')
-#             return HttpResponseRedirect(reverse('feed'))
-#     else:
-#         form = FeedbackForm()
-
-#     feeds = Feedback.objects.filter(is_active=True).order_by('-timestamp')
-#     return render(request, 'feed.html',
-#         {'feeds': feeds, 'form': form, 'current_page': 'feed'})

@@ -22,14 +22,14 @@
             </a>
 
             <!-- Your site name for the upper left corner of the site -->
-            <a class="brand">Запись онлайн</a>
+            <a class="brand" href="/">Запись онлайн</a>
 
             <!-- Start of the nav bar content -->
             {% if not user.is_authenticated %}
             <div class="nav-collapse">
                 <!-- The drop down menu -->
                 <ul class="nav pull-right">
-                    <li><a href="/register">Регистрация</a></li>
+                    <li><a href="/register/">Регистрация</a></li>
                         <li class="divider-vertical"></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Вход <strong class="caret"></strong></a>
@@ -73,7 +73,7 @@
         {% if user.is_authenticated %}
         <p>Рады видеть вас снова, {{ user.username }}.</p>
         {% else %}
-        <p><a class="btn" href="#"><span class="btn-label">Регистрация</span></a></p>
+        <p><a class="btn" href="{%  url register %}"><span class="btn-label">Регистрация</span></a></p>
         {% endif %}
     </div>
     <div class="container">{{ flatpage.content }}</div>
