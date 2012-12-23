@@ -151,7 +151,6 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     # Добавим поддержку tinymce
     'tinymce',
-    'zo',
     'flatpages_tinymce',
 )
 
