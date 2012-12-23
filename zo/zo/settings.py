@@ -132,7 +132,7 @@ WSGI_APPLICATION = 'zo.wsgi.application'
 
 TEMPLATE_DIRS = (
     #расположение наших темплейтов
-    os.path.join(PROJECT_PATH, "templates", "flatpages"),
+    os.path.join(PROJECT_PATH, "templates"),
 )
 
 

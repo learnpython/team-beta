@@ -1,29 +1,20 @@
-{% load staticfiles %}
+{% extends 'flatpages/default.html'%}
 
-<!DOCTYPE html>
-<head>
-<title>Registration</title>
 
-<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css" />
-<script type='text/javascript' src="{% static 'js/bootstrap.min.js' %}"></script>
+<title>{{ flatpage.title}}</title>
 
-</head>
-<body>
-
-<form class="form-horizontal" action='' method="POST">
+{% block register%}
+<form class="form-horizontal" action='/' method="GET">
 <fieldset>
-    <div id="legend">
-        <legend class="">Login</legend>
-    </div>
-
-
+    
 <div class="control-group">
       <label class="control-label" for="usertype">UserType</label>
       <div class="controls">
         <select>
-            <option>Пользователь</option>
-            <option>Контрагент</option>
+            <option value="user_type">Пользователь</option>
+            <option value="contr_type">Контрагент</option>
         </select>
+         
     </div>
 </div>
 
@@ -62,7 +53,7 @@
 
 <div class="control-group">
     <div class="controls">
-        <button class="btn btn-success">Login</button>
+        <button class="btn btn-success">Регистрация</button>
     </div>
 </div>
 
@@ -71,5 +62,5 @@
 </form>
 
 
-</body>
-</html>
+
+{% endblock %}

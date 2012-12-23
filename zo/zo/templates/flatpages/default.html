@@ -5,10 +5,10 @@
     <title>{{ flatpage.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-    <link rel="stylesheet" href="https://app.divshot.com/css/divshot-util.css">
-    <link rel="stylesheet" href="https://app.divshot.com/css/bootstrap.css">
-    <link rel="stylesheet" href="https://app.divshot.com/css/bootstrap-responsive.css">
-    <script src="https://app.divshot.com/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/divshot-util.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css">
+    <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -36,7 +36,6 @@
 
                         <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
                             <form action="[YOUR ACTION]" method="post" accept-charset="UTF-8">
-                                {% csrf_token %}
                                 <input id="user_username" style="margin-bottom: 15px;" type="text" name="user[username]"
                                        size="30"/>
                                 <input id="user_password" style="margin-bottom: 15px;" type="password"
@@ -66,6 +65,7 @@
     </div>
 </div>
 <div class="container">
+    {% if flatpage.url == '/' %}
     <div class="page-header">
         <h1 class="align-center">Запись онлайн</h1>
     </div>
@@ -80,7 +80,11 @@
     <p class="text-info lead align-center">Записаться на прием к стоматологу, стилисту, парикмахеру или юристу в
         два клика</p>
 </div>
-<script src="https://app.divshot.com/js/bootstrap.min.js"></script>
+{% else %}
+        {% block register %}
+        {% endblock%}
+    {% endif %}
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 </body>
 
 </html>

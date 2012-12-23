@@ -33,3 +33,8 @@ Run:
     To join as administrator, go to http://127.0.0.1:8000/admin and input 
         user: admin
         pass: nimda
+
+Windows:
+    If you run your project on OS windows with runserver, 
+    you need add --nostatic key when start runserver
+    ex. python manage.py runserver --nostatic
