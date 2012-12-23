@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from zo import models
+from zo.auth import models
 
 from django.contrib import admin
 

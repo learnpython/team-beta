@@ -61,12 +61,12 @@ USE_L10N = True
 USE_TZ = True
 
 #Так же перепишем пути хранения нашей статики и медиа
-STATIC_ROOT = os.path.join(PROJECT_PATH, "static")
+STATIC_ROOT = os.path.join(PROJECT_PATH, '..', 'static')
 STATIC_URL = "/static/"
 #Админ шаблоны тоже сместим.
 ADMIN_MEDIA_PREFIX = "/static/admin/"
 
-MEDIA_ROOT = os.path.join(PROJECT_PATH, "media")
+MEDIA_ROOT = os.path.join(PROJECT_PATH, '..', 'media')
 MEDIA_URL = "/media/"
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -90,6 +90,7 @@ MEDIA_URL = "/media/"
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, "static"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -151,7 +152,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     # Добавим поддержку tinymce
     'tinymce',
-    'zo',
+    'zo.auth',
     'flatpages_tinymce',
 )
 
