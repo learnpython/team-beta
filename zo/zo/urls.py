@@ -3,13 +3,13 @@ from django.contrib import admin
 admin.autodiscover()
 from django.conf import settings
 from django.contrib.auth.views import logout
-from views import register
+from views import index
 
 
 urlpatterns = patterns('',
+    url(r'^$', index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^register/$', register, name='register'),
     url(r'^logout/$', logout, {"next_page": "/"}, name='logout'),
 )
 if settings.DEBUG:
