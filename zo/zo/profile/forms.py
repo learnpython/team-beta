@@ -13,7 +13,7 @@ class MyUserCreateForm(UserCreationForm):
         model = User
         fields = ("username",
                 # "fullname",
-                # "email",
+                "email",
                 "password1",
                 "password2",
                 )

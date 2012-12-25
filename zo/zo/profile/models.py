@@ -1,30 +1,26 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
 
 class UserProfile(models.Model):
-    TYPE_CHOICE = (
-        ('regular', _(u'Регулярный пользователь')),
-        ('agent', _(u'Контрагент')),
-    )
-
-    user = models.ForeignKey(User, verbose_name=_(u'Пользователь'), unique=True)
-
-    user_type = models.CharField(_(u'Тип пользователя'), choices=TYPE_CHOICE,
-        max_length=20)
-    birthday = models.DateField(_(u'Дата рождения'), blank=True, null=True)
-    city = models.CharField(_(u'Город'), help_text=_(u'Например: Киев'),
-        max_length=25, blank=True)
-    address = models.TextField(_('Адрес'),
-        help_text=_(u'Например: ул. Ракетная 26, корпус 2, кв.20'), blank=True)
-    phone = models.CharField(_(u'Телефон'),
-        help_text=_(u'Например: (044) 524-18-03'), max_length=25, blank=True)
-
-    def __unicode__(self):
-        return '%s (%s)' % (self.user, self.user_type)
+    user = models.OneToOneField(User)
+    user_mobile = models.CharField('Мобильный телефон', max_length=20)
+    user_type = models.CharField('Тип пользователя', max_length=1)
 
     class Meta:
-        verbose_name = _(u'Профиль')
-        verbose_name_plural = _(u'Профили')
+        ordering = ['user']
+
+
+class Contragent(models.Model):
+    contr_name = models.CharField('Название', max_length=20)
+    contr_adress = models.CharField('Адресс', max_length=20)
+    contr_type = models.CharField('Тип', max_length=20)
+    contr_phone = models.CharField('Телефон', max_length=20)
+    contr_detail = models.TextField('Описание')
+
+    def __unicode__(self):
+        return '%s %s %s %s' % (self.contr_name, self.contr_adress, self.contr_type, self.contr_detail)
+
+    class Meta:
+        ordering = ['contr_name']
