@@ -1,61 +1,23 @@
-{% extends 'flatpages/default.html'%}
-
-
-<title>{{ flatpage.title}}</title>
-
-{% block register%}
-
-<form class="form-horizontal" action='' method="POST">
-{% csrf_token %}
-<fieldset>
-
-<div class="control-group">
-      <label class="control-label" for="usertype">Выберите тип пользователя</label>
-      <div class="controls">
-        <select>
-            <option value="user_type">Обычный пользователь</option>
-            <option value="contr_type">Контрагент</option>
-        </select>
-
-    </div>
-</div>
-
-<div class="control-group {% if form.username.errors %}error{% endif %}">
-    <label class="control-label"  for="id_username">{{ form.username.label }}</label>
-        <div class="controls">
+<li class="dropdown">
+    <a class="dropdown-toggle" href="#" data-toggle="dropdown">Регистрация <strong class="caret"></strong></a>
+    <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+        <form id="registration" action="" method="POST" accept-charset="UTF-8">
+            {% csrf_token %}
+            {{ form.username.errors }}
+            <label for="user_username">Username</label>
             {{ form.username }}
-            {% if form.username.errors %}<span class="help-inline">{{ form.username.errors|join:", " }}</span>{% endif %}
-    </div>
-</div>
-
-<div class="control-group {% if form.password1.errors %}error{% endif %}">
-    <label class="control-label" for="id_password1">{{ form.password1.label }}</label>
-        <div class="controls">
+<!--             {{ form.email.errors }}
+            <label for="user_email">Email</label>
+            {{ form.email }} -->
+            {{ form.password1.errors }}
+            <label for="user_password">Пароль</label>
             {{ form.password1 }}
-            {% if form.password1.errors %}<span class="help-inline">{{ form.password1.errors|join:", " }}</span>{% endif %}
-
+            {{ form.password2.errors }}
+            <label for="user_password2">Повторите пароль</label>
+            {{ form.password2 }}
+            <input class="btn btn-primary"
+            style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit"
+            name="commit" value="Зарегистрироваться"/>
+        </form>
     </div>
-</div>
-
-<div class="control-group {% if form.password2.errors %}error{% endif %}">
-    <label class="control-label" for="id_password2">{{ form.password2.label }}</label>
-        <div class="controls">
-        {{ form.password2 }}
-        {% if form.password2.errors %}<span class="help-inline">{{ form.password2.errors|join:", " }}</span>{% endif %}
-    </div>
-</div>
-
-
-<div class="control-group">
-    <div class="controls">
-        <button class="btn btn-success">Регистрация</button>
-    </div>
-</div>
-
-
-</fieldset>
-</form>
-
-
-
-{% endblock %}
+</li>
