@@ -155,6 +155,8 @@ INSTALLED_APPS = (
     # Добавим обработку профиля пользователей
     'zo.profile',
 )
+# Следующая строка необходима для работы новой модели юзера
+AUTH_PROFILE_MODULE = "profile.UserProfile"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

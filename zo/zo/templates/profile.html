@@ -1,0 +1,10 @@
+{% extends 'flatpages/default.html' %}
+{% block profile %}
+<body>
+    <p>UserName {{ user.username }}</p>
+    <p>UserID {{ user.id }}</p>
+    <p>UserEmail {{ user.email }}</p>
+    <p>UserFN {{ user.first_name }}</p>
+    <p>UserLN {{ user.last_name }}</p>
+</body>
+{% endblock %}

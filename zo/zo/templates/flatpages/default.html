@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!doctype html>
 <html>
 
@@ -5,11 +6,11 @@
     <title>{{ flatpage.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/divshot-util.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css">
-    <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.validate.js"></script>
+    <link rel="stylesheet" href="{% static "css/divshot-util.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-responsive.css" %}">
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.validate.js" %}"></script>
     <style type="text/css">
     label { width: 10em; float: left; }
     label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
@@ -39,6 +40,10 @@
                         <li class="active"><a href="/">Домой</a></li>
                         <li><a href="/about/">About</a></li>
                         <li><a href="/contacts/">Контакты</a></li>
+	                    {% if user.is_authenticated %}
+	                    <li><a href="/profile/">Профиль</a></li>
+	                    {% endif %}
+
                     </ul>
 
                     <!-- Start of the nav bar content -->
@@ -108,6 +113,8 @@
                 <h1 class="align-center">Запись онлайн</h1>
             </div>
             <div class="container">{{ flatpage.content }}</div>
+            {% block profile %}
+            {% endblock %}
             <div align="center">
                 {% if user.is_authenticated %}
                 <p>Рады видеть вас снова, {{ user.username }}.</p>
@@ -118,6 +125,6 @@
             <p class="text-info lead align-center">Записаться на прием к стоматологу, стилисту, парикмахеру или юристу в
                 два клика</p>
         </div>
-            <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+            <script src="{% static "js/bootstrap.min.js" %}"></script>
 </body>
 </html>

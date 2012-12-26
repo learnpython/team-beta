@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from zo.profile.forms import MyUserCreateForm
+from profile.forms import MyUserCreateForm
 from django.contrib.auth import authenticate, login
+
+
+def profile(request):
+    if request.user.is_authenticated():
+        user = request.user
+        return render_to_response('profile.html', {'user': user})
+    else:
+        messages.success(request, 'Вы не вошли в систему')
+        return HttpResponseRedirect('/')
 
 
 def login_user(request):
