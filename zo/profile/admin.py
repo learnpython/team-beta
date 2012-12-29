@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from models import UserProfile, Contragent
+from models import UserProfile, Contragent, Address
 
 
 class UserProfileAdmin(admin.ModelAdmin):
@@ -15,5 +15,10 @@ class UserContragent(admin.ModelAdmin):
     search_fields = ['contr_name', ]
 
 
+class AddressAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Contragent, UserContragent)
+admin.site.register(Address, AddressAdmin)
