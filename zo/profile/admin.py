@@ -1,24 +1,28 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from models import UserProfile, Contragent, Address
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from profile.models import UserProfile, Contragent
 
 
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user_mobile', 'user_type')
-    search_filter = ('user')
-    search_fields = ['user', ]
+class ProfileInline(admin.StackedInline):
+    model = UserProfile
+    fk_name = 'user'
+    max_num = 1
 
 
-class UserContragent(admin.ModelAdmin):
-    list_display = ('contr_name', 'contr_adress', 'contr_type', 'contr_phone', 'contr_detail')
+class CustomUserAdmin(UserAdmin):
+    inlines = [ProfileInline, ]
+
+
+class ContragentAdmin(admin.ModelAdmin):
+    list_display = ('contr_name', 'contr_phone', 'contr_detail', 'contr_region',
+        'contr_city', 'contr_city_code', 'contr_street', 'contr_building',
+        'contr_zipcode', 'ngitude', 'latitude')
     search_filter = ('contr_name')
     search_fields = ['contr_name', ]
 
 
-class AddressAdmin(admin.ModelAdmin):
-    pass
-
-
-admin.site.register(UserProfile, UserProfileAdmin)
-admin.site.register(Contragent, UserContragent)
-admin.site.register(Address, AddressAdmin)
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
+admin.site.register(Contragent, ContragentAdmin)

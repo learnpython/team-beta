@@ -153,7 +153,7 @@ INSTALLED_APPS = (
     'tinymce',
     'flatpages_tinymce',
     # Добавим обработку профиля пользователей
-    'zo.profile',
+    'profile',
 )
 # Следующая строка необходима для работы новой модели юзера
 AUTH_PROFILE_MODULE = "profile.UserProfile"
