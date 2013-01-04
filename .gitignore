@@ -8,5 +8,5 @@ $ cat .gitignore
 .ropeprojects
 .idea
 env
-zo/zo/static/admin
-zo/zo/static/tiny_mce
+/zo/static/admin
+/zo/static/tiny_mce
