@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True)
     # Мобильный телефон
-    mobile = models.ForeignKey('Mobile')
+    mobile = models.CharField('Мобильный телефон', max_length=20)
+    mobile_code = models.ForeignKey('MobileCode')
     # Следующая срока нужна для того что бы связать юзера и контрагент, если 0 - юзер
     # если нет - поле заполняем ид имени контрагента. ТОгда просто делать выборку.
     user_contr = models.CharField(max_length=4, default=0)
@@ -55,7 +56,12 @@ class CityRegion(models.Model):
 class CityCode(models.Model):
     city_code = models.CharField('Код города', max_length=5)
 
+    def __unicode__(self):
+        return self.city_code
 
-class Mobile(models.Model):
+
+class MobileCode(models.Model):
     mobile_code = models.CharField('Код оператора', max_length=3, blank=False)
-    mobile = models.CharField('Мобильный телефон', max_length=20)
+
+    def __unicode__(self):
+        return self.mobile_code

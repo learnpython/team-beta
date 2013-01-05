@@ -3,13 +3,19 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from profile.forms import MyUserCreateForm
+from profile.models import Contragent
 from django.contrib.auth import authenticate, login
 
 
 def profile(request):
     if request.user.is_authenticated():
         user = request.user
-        return render_to_response('profile.html', {'user': user})
+        user_profile = request.user.get_profile().user_contr
+        if user_profile == 0:
+            return render_to_response('profile.html', {'user': user})
+        else:
+            contr = Contragent.objects.filter(id=user_profile)
+            return render_to_response('profile.html', {'user': user, 'contr': contr})
     else:
         messages.error(request, 'Вы не вошли в систему')
         return HttpResponseRedirect('/')

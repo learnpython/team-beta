@@ -5,5 +5,16 @@
     <p>UserEmail {{ user.email }}</p>
     <p>UserFN {{ user.first_name }}</p>
     <p>UserLN {{ user.last_name }}</p>
+    <p>UserMobileCode {{ user.get_profile.mobile_code }}</p>
+    <p>UserMobile {{ user.get_profile.mobile }}</p>
+    <p></p>
+    {% for i in contr %}
+        <p>{{ i.contr_name }}</p>
+        <p>{{ i.contr_phone }}</p>
+        <p>{{ i.contr_detail }}</p>
+        <p>{{ i.contr_region }}</p>
+        <p>{{ i.contr_city}}</p>
+        <p>{{ i.contr_city_code }}</p>
+    {% endfor %}
 </body>
 {% endblock %}

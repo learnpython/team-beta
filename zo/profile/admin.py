@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from profile.models import UserProfile, Contragent
+from profile.models import UserProfile, Contragent, City, CityCode, CityRegion, MobileCode
 
 
 class ProfileInline(admin.StackedInline):
@@ -26,3 +26,7 @@ class ContragentAdmin(admin.ModelAdmin):
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Contragent, ContragentAdmin)
+admin.site.register(City)
+admin.site.register(CityCode)
+admin.site.register(CityRegion)
+admin.site.register(MobileCode)
