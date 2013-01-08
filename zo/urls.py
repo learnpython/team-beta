@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^logout/$', logout, {"next_page": "/"}, name='logout'),
     url(r'^login/$', login_user, name='login'),
-	url(r'^profile/$', profile),
+    url(r'^profile/$', profile, name='profile'),
 )
 if settings.DEBUG:
     urlpatterns = patterns('',

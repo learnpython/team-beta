@@ -1,20 +1,68 @@
 {% extends 'flatpages/default.html' %}
 {% block profile %}
+
 <body>
-    <p>UserName {{ user.username }}</p>
-    <p>UserEmail {{ user.email }}</p>
-    <p>UserFN {{ user.first_name }}</p>
-    <p>UserLN {{ user.last_name }}</p>
-    <p>UserMobileCode {{ user.get_profile.mobile_code }}</p>
-    <p>UserMobile {{ user.get_profile.mobile }}</p>
-    <p></p>
-    {% for i in contr %}
-        <p>{{ i.contr_name }}</p>
-        <p>{{ i.contr_phone }}</p>
-        <p>{{ i.contr_detail }}</p>
-        <p>{{ i.contr_region }}</p>
-        <p>{{ i.contr_city}}</p>
-        <p>{{ i.contr_city_code }}</p>
+<h3>Профиль</h3>
+<div class="span7">
+    <table class="table table-striped">
+        <tr><th colspan="2">Информация о пользователе:</th></tr>
+        <tr>
+            <th>UserName</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>UserEmail</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>UserFN</th>
+            <td>{{ user.first_name }}</td>
+        </tr>
+        <tr>
+            <th>UserLN </th>
+            <td>{{ user.last_name }}</td>
+        </tr>
+        <tr>
+            <th>UserMobileCode</th>
+            <td>{{ user.get_profile.mobile_code }}</td>
+        </tr>
+        <tr>
+            <th>UserMobile</th>
+            <td>{{ user.get_profile.mobile }}</td>
+        </tr>
+        {% if contr %}
+        <tr><td></td><td></td></tr>
+        <tr><th colspan="2">Информация о компании:</th></tr>
+        {% for i in contr %}
+        <tr>
+            <th>Name</th>
+            <td>{{ i.contr_name }}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{ i.contr_phone }}</td>
+        </tr>
+        <tr>
+            <th>Detail</th>
+            <td>{{ i.contr_detail }}</td>
+        </tr>
+        <tr>
+            <th>Region</th>
+            <td>{{ i.contr_region }}</td>
+        </tr>
+        <tr>
+            <th>City</th>
+            <td>{{ i.contr_city}}</td>
+        </tr>
+        <tr>
+            <th>CityCode</th>
+            <td>{{ i.contr_city_code }}</td>
+        </tr>
     {% endfor %}
+    {% endif %}
+    </table>
+</div>
+
 </body>
+
 {% endblock %}
