@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True)
     # Мобильный телефон
-    mobile = models.CharField('Мобильный телефон', max_length=20)
-    mobile_code = models.ForeignKey('MobileCode')
+    mobile = models.CharField('Мобильный телефон', max_length=20, blank=True)
+    mobile_code = models.ForeignKey('MobileCode', blank=True, null=True)
     # Следующая срока нужна для того что бы связать юзера и контрагент, если 0 - юзер
     # если нет - поле заполняем ид имени контрагента. ТОгда просто делать выборку.
-    user_contr = models.CharField(max_length=4, default=0)
+    user_contr = models.ForeignKey('Contragent', blank=True, null=True)
 
     class Meta:
         ordering = ['user']
@@ -31,7 +31,7 @@ class Contragent(models.Model):
     latitude = models.FloatField('Широта', max_length=10, blank=True, default=50.0)
 
     def __unicode__(self):
-        return '%s %s %s' % (self.contr_name, self.contr_detail, self.contr_street)
+        return self.contr_name
 
     class Meta:
         ordering = ['contr_name']
@@ -65,3 +65,9 @@ class MobileCode(models.Model):
 
     def __unicode__(self):
         return self.mobile_code
+
+
+def user_post_save(created, instance, **kwags):
+    if created:
+        UserProfile(user=instance).save()
+models.signals.post_save.connect(user_post_save, sender=User)

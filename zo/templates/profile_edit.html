@@ -1,0 +1,54 @@
+{% extends 'flatpages/default.html' %}
+{% block profile %}
+
+<body>
+<h3 align="center">Редактирование профиля</h3>
+
+<form  id="registration_edit" action="" method="POST" accept-charset="UTF-8">
+    {% csrf_token %}
+
+<div class="span7">
+    <table class="table">
+        <tr>
+            <th colspan="2"><h4>Информация о пользователе:</h4><div>
+            </th>
+        </tr>
+        <tr>
+            <th>Логин</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ form.email }}</td>
+        </tr>
+        <tr>
+            <th>Имя</th>
+            <td>{{ form.first_name }}</td>
+        </tr>
+        <tr>
+            <th>Фамилия </th>
+            <td>{{ form.last_name }}</td>
+        </tr>
+        <tr>
+            <th>Код контактного номера</th>
+            <td>{{ profile_form.mobile_code }}</td>
+        </tr>
+        <tr>
+            <th>Контактный номер</th>
+            <td>{{ profile_form.mobile }}</td>
+        </tr>
+        <tr>
+            <th>Название компании</th>
+            <td>{{ profile_form.user_contr }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><div align="center"><input align="center" class="btn btn-primary" style="clear: right; width: 30%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Сохранить"/>
+</div></td>
+        </tr>
+    </table>
+</div>
+</form>
+
+</body>
+
+{% endblock %}

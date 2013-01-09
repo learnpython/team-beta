@@ -3,7 +3,7 @@ from django.contrib import admin
 admin.autodiscover()
 from django.conf import settings
 from django.contrib.auth.views import logout
-from views import index, login_user, profile
+from views import index, login_user, profile, profile_edit
 
 
 urlpatterns = patterns('',
@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', logout, {"next_page": "/"}, name='logout'),
     url(r'^login/$', login_user, name='login'),
     url(r'^profile/$', profile, name='profile'),
+    url(r'^profile/edit/$', profile_edit, name='profile_edit'),
 )
 if settings.DEBUG:
     urlpatterns = patterns('',

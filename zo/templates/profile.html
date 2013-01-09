@@ -2,73 +2,69 @@
 {% block profile %}
 
 <body>
-<h3>Профиль</h3>
-<input class="btn btn-primary"
-                                        style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit"
-                                        name="commit" value="Войти"/>
-<input class="btn btn-primary"
-                                        style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit"
-                                        name="commit" value="Войти"/>
+<h3 align="center">Профиль</h3>
+
+<!-- <div>
+    <input class="btn btn-primary" style="clear: right; width: 30%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Войти"/>
+</div>
+ -->
 <div class="span7">
-    <table class="table table-striped">
-        <tr><th colspan="2">Информация о пользователе:</th></tr>
+    <table class="table">
+        <tr><th colspan="2"><h4>Информация о пользователе:</h4><a href="{% url profile_edit %}">редактировать</a></th></tr>
         <tr>
-            <th>UserName</th>
+            <th>Логин</th>
             <td>{{ user.username }}</td>
         </tr>
         <tr>
-            <th>UserEmail</th>
+            <th>Email</th>
             <td>{{ user.email }}</td>
         </tr>
         <tr>
-            <th>UserFN</th>
+            <th>Имя</th>
             <td>{{ user.first_name }}</td>
         </tr>
         <tr>
-            <th>UserLN </th>
+            <th>Фамилия</th>
             <td>{{ user.last_name }}</td>
         </tr>
         <tr>
-            <th>UserMobileCode</th>
-            <td>{{ user.get_profile.mobile_code }}</td>
-        </tr>
-        <tr>
-            <th>UserMobile</th>
-            <td>{{ user.get_profile.mobile }}</td>
+            <th>Контактный номер</th>
+            <td>
+            {% if user.get_profile.mobile_code and user.get_profile.mobile %}
+                {{ user.get_profile.mobile_code }}{{ user.get_profile.mobile }}
+            {% endif %}
+        </td>
         </tr>
         {% if contr %}
-        <tr><td></td><td></td></tr>
-        <tr><th colspan="2">Информация о компании:</th></tr>
-        {% for i in contr %}
+        <tr><td colspan="2"></td></tr>
+        <tr><th colspan="2"><h4>Информация о компании:</h4></th></tr>
         <tr>
-            <th>Name</th>
-            <td>{{ i.contr_name }}</td>
+            <th>Название</th>
+            <td>{{ contr.contr_name }}</td>
         </tr>
         <tr>
-            <th>Phone</th>
-            <td>{{ i.contr_phone }}</td>
+            <th>Контактный номер</th>
+            <td>{{ contr.contr_phone }}</td>
         </tr>
         <tr>
-            <th>Detail</th>
-            <td>{{ i.contr_detail }}</td>
+            <th>Информация о компании</th>
+            <td>{{ contr.contr_detail }}</td>
         </tr>
         <tr>
-            <th>Region</th>
-            <td>{{ i.contr_region }}</td>
+            <th>Область</th>
+            <td>{{ contr.contr_region }}</td>
         </tr>
         <tr>
-            <th>City</th>
-            <td>{{ i.contr_city}}</td>
+            <th>Город</th>
+            <td>{{ contr.contr_city}}</td>
         </tr>
         <tr>
-            <th>CityCode</th>
-            <td>{{ i.contr_city_code }}</td>
+            <th>Код города</th>
+            <td>{{ contr.contr_city_code }}</td>
         </tr>
-    {% endfor %}
     {% endif %}
     </table>
 </div>
-
 </body>
 
 {% endblock %}

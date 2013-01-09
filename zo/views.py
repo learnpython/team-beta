@@ -2,23 +2,41 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from profile.forms import MyUserCreateForm
+from profile.forms import MyUserCreateForm, MyUserForm, MyUserProfileForm
 from profile.models import Contragent
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
 
+@login_required
 def profile(request):
-    if request.user.is_authenticated():
-        user = request.user
-        user_profile = request.user.get_profile().user_contr
-        if user_profile == 0:
-            return render_to_response('profile.html', {'user': user})
-        else:
-            contr = Contragent.objects.filter(id=user_profile)
-            return render_to_response('profile.html', {'user': user, 'contr': contr})
+    user = request.user
+    user_profile = user.get_profile()
+    contr = user_profile.user_contr
+    return render(request, 'profile.html',
+            {"user": user, "user_profile": user_profile, "contr": contr})
+
+
+@login_required
+def profile_edit(request):
+    user = request.user
+    user_profile = user.get_profile()
+
+    if request.method == 'POST':
+        form = MyUserForm(request.POST, instance=user)
+        profile_form = MyUserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid() and profile_form.is_valid():
+            form.save()
+            profile_form.save()
+            messages.success(request, 'Вы успешно обновили профиль')
+            return HttpResponseRedirect(reverse('profile'))
     else:
-        messages.error(request, 'Вы не вошли в систему')
-        return HttpResponseRedirect('/')
+        form = MyUserForm(instance=user)
+        profile_form = MyUserProfileForm(instance=user_profile)
+
+    return render(request, 'profile_edit.html',
+            {'form': form, 'profile_form': profile_form, "user": user, "user_profile": user_profile})
 
 
 def login_user(request):
@@ -29,10 +47,10 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Вы успешно вошли в ситему')
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse('index'))
         else:
             messages.error(request, 'Неправильный логин или пароль')
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse('index'))
 
 
 def index(request):
@@ -45,7 +63,7 @@ def index(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, 'Успешная регистрация')
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse('profile_edit'))
     else:
         form = MyUserCreateForm()
     return render(request, 'flatpages/default.html', {"form": form})
