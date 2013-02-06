@@ -50,10 +50,13 @@
     }
 </script>
 
+// Кусок кода, который должен выполнять геокодирование по адресу. Но почему-то пока этого не делает
 <script type="text/javascript">
 var myGeocoder = ymaps.geocode('{{b.city}}, {{b.street1}} {{b.street2}}, {{b.building}}');
 myGeocoder.then(
     function (res) {
+        var business = res.geoObjects.get(0)
+        nearest.properties.set('iconContent', {{b.contr_name}});
         myMap.geoObjects.add(res.geoObjects);
     function (err) {
         alert('Координаты не определены');
