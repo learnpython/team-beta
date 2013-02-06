@@ -1,0 +1,64 @@
+{% extends 'default.html' %}
+{% block profile %}
+
+<body>
+
+<ul class="breadcrumb">
+{% if parents %}
+            <li><a href="/">Домой</a> <span class="divider">/</span></li>
+    {% for position, parent in parents %}
+            <li><a href="/{{ parent.slug }}">{{ parent.name }}</a> <span class="divider">/</span></li>
+    {% endfor %}
+{% else %}
+        <li><a href="/">Домой</a> <span class="divider">/</span></li>
+{% endif %}
+    <li class="active"><li><a href="/{{ current.slug }}">{{ current.name }}</a></li>
+</ul>
+
+<h2>{{ b.contr_name }}</h2>
+<div>
+    <ul>
+        <li><a href="tel:{{b.phone}}">Телефон: {{b.phone}}</a></li>
+        <li>Адрес: {{b.street1}} {{b.street2}} {{b.building}}
+    </ul>
+</div>
+
+<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+
+<div id="map" style="width: 600px; height: 400px"></div>
+
+<script type="text/javascript">
+  ymaps.ready(init);
+    var myMap,
+        myPlacemark;
+
+    function init(){
+        myMap = new ymaps.Map ("map", {
+            center: [{{b.latitude|floatformat}}, {{b.longitude|floatformat}}],
+            zoom: 9,
+        });
+
+        myPlacemark = new ymaps.Placemark([{{b.latitude|floatformat}}, {{b.longitude|floatformat}}], {
+            content: '{{b.contr_name}}',
+            balloonContent: '{{b.phone}} {{b.detail}}'
+        });
+
+        myMap.geoObjects.add(myPlacemark);
+
+        myMap.controls.add(new ymaps.control.ZoomControl()
+);
+    }
+</script>
+
+<script type="text/javascript">
+var myGeocoder = ymaps.geocode('{{b.city}}, {{b.street1}} {{b.street2}}, {{b.building}}');
+myGeocoder.then(
+    function (res) {
+        myMap.geoObjects.add(res.geoObjects);
+    function (err) {
+        alert('Координаты не определены');
+    }
+);
+</script>
+
+{% endblock %}

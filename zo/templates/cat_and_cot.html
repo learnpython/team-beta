@@ -19,7 +19,7 @@
 
         <div align="center">
         {% for category  in categories %}
-            <h4><a href="{{ category.slug }}">{{category.name}}</a></h4>
+            <h4><a href="/{{ category.slug }}">{{category.name}}</a></h4>
         {% endfor %}
         </div>
     {% endif %}
@@ -27,7 +27,7 @@
     {% if businesses %}
         <table class="table table-striped">
             {% for b in businesses %}
-                <tr><td><a href="#" alt="Подробнее">{{ b.contr_name}}</a></td><td>{{b.phone}}</td><td><a href="#" alt="Посмотреть на карте">{{ b.street1 }} {{b.building}}</a></td><td>{{ b.detail }}</td></tr>
+                <tr><td><a href="{{current.slug}}/{{b.id}}" alt="Подробнее">{{ b.contr_name}}</a></td><td>{{b.phone}}</td><td><a href="#" alt="Посмотреть на карте">{{ b.street1 }} {{b.building}}</a></td><td>{{ b.detail }}</td></tr>
             {% endfor %}
         </table>
     {% endif %}

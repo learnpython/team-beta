@@ -2,11 +2,12 @@
 {% block profile %}
 
     {% if categories%}
-        <div align=center>
+        <div align="center">
         {% for category  in categories %}
-            <b><a href="{{ category.slug }}">{{category.name}}</a></b>
+            <h4><a href="{{ category.slug }}">{{category.name}}</a></h4>
         {% endfor %}
         </div>
     {% endif %}
+
 
 {% endblock %}

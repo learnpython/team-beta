@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
+
 @login_required
 def profile(request):
     user = request.user
@@ -105,3 +106,30 @@ def show_category(request, cat_name):
                                             "businesses": businesses,
                                             }
                     )
+
+
+def contragent(request, cat_name, contr_id):
+    if request.method == 'POST':
+        form = MyUserCreateForm(request.POST)
+        if form.is_valid():
+            username = form.clean_username()
+            password = form.clean_password2()
+            form.save()
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, 'Успешная регистрация')
+            return HttpResponseRedirect(reverse('profile_edit'))
+    else:
+        form = MyUserCreateForm()
+    try:
+        business = Contragent.objects.get(id=contr_id)
+    except ObjectDoesNotExist:
+        messages.error(request, 'Сведения о предприятии не найдены')
+        return render(request, 'index.html')
+    category = Category.objects.get(id=business.main_category_id)
+    parents = category.get_parents(category)
+    return render(request, 'contragent.html',
+                        {"b": business,
+                        "current": category,
+                        "parents": sorted(parents.iteritems(), reverse=True),
+                        })
