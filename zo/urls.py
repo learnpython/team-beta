@@ -3,7 +3,7 @@ from django.contrib import admin
 admin.autodiscover()
 from django.conf import settings
 from django.contrib.auth.views import logout
-from views import index, login_user, profile, profile_edit
+from views import index, login_user, profile, profile_edit, show_category
 
 
 urlpatterns = patterns('',
@@ -14,7 +14,9 @@ urlpatterns = patterns('',
     url(r'^login/$', login_user, name='login'),
     url(r'^profile/$', profile, name='profile'),
     url(r'^profile/edit/$', profile_edit, name='profile_edit'),
+    url(r'^(?P<cat_name>(\w|-)*$)', show_category, name='show_category'),
 )
+
 if settings.DEBUG:
     urlpatterns = patterns('',
         url(

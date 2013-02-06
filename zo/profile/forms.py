@@ -24,7 +24,6 @@ class MyUserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
         fields = ("mobile",
-            "mobile_code",
             "user_contr",
             )
 

@@ -7,7 +7,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True)
     # Мобильный телефон
     mobile = models.CharField('Мобильный телефон', max_length=20, blank=True)
-    mobile_code = models.ForeignKey('MobileCode', blank=True, null=True)
     # Следующая срока нужна для того что бы связать юзера и контрагент, если 0 - юзер
     # если нет - поле заполняем ид имени контрагента. ТОгда просто делать выборку.
     user_contr = models.ForeignKey('Contragent', blank=True, null=True)
@@ -16,18 +15,48 @@ class UserProfile(models.Model):
         ordering = ['user']
 
 
+class Category(models.Model):
+    name = models.CharField('Name', max_length=40, unique=True)
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='родительская категория')
+    slug = models.SlugField(unique=True)
+
+    class Meta:
+        verbose_name = 'Категория услуг'
+        verbose_name_plural = 'Категории услуг'
+
+    def get_parents(self, instance):
+        if instance.parent:
+            current = instance
+            parents = {}
+            position = 0
+            while current.parent is not None:
+                parents[position] = current.parent
+                current = current.parent
+                position += 1
+            return parents
+        return {}
+
+    def __unicode__(self):
+        if self.parent:
+            return self.parent.name + ' -> ' + self.name
+        return self.name
+
+
 class Contragent(models.Model):
     # Здесь перечисляем уникальные поля которые Контр заполняет руками
-    contr_name = models.CharField('Название', max_length=20)
-    contr_phone = models.CharField('Телефон', max_length=20)
-    contr_detail = models.TextField('Описание')
-    contr_region = models.ForeignKey('CityRegion')
-    contr_city = models.ForeignKey('City')
-    contr_city_code = models.ForeignKey('CityCode')
-    contr_street = models.CharField('Улица 1', max_length=100, blank=False)
-    contr_building = models.CharField('Номер дома', max_length=3, blank=True)
-    contr_zipcode = models.CharField('Индекс', max_length=5, blank=True)
-    ngitude = models.FloatField('Долгота', max_length=10, blank=True, default=30.0)
+    main_category = models.ForeignKey('Category', related_name='Основна категория')
+    additional_category1 = models.ForeignKey('Category', blank=True, null=True, related_name='Дополнительная категория')
+    additional_category2 = models.ForeignKey('Category', blank=True, null=True, related_name='Дополнительная категория 2')
+    contr_name = models.CharField('Название', max_length=100)
+    phone = models.CharField('Телефон', max_length=20)
+    detail = models.TextField('Описание')
+    region = models.ForeignKey('CityRegion')
+    city = models.ForeignKey('City')
+    street1 = models.CharField('Улица 1', max_length=100, blank=False)
+    street2 = models.CharField('Улица 2', max_length=100, blank=True)
+    building = models.CharField('Номер дома', max_length=3, blank=True)
+    zipcode = models.CharField('Индекс', max_length=5, blank=True)
+    longitude = models.FloatField('Долгота', max_length=10, blank=True, default=30.0)
     latitude = models.FloatField('Широта', max_length=10, blank=True, default=50.0)
 
     def __unicode__(self):
@@ -51,20 +80,6 @@ class CityRegion(models.Model):
 
     def __unicode__(self):
         return self.region
-
-
-class CityCode(models.Model):
-    city_code = models.CharField('Код города', max_length=5)
-
-    def __unicode__(self):
-        return self.city_code
-
-
-class MobileCode(models.Model):
-    mobile_code = models.CharField('Код оператора', max_length=3, blank=False)
-
-    def __unicode__(self):
-        return self.mobile_code
 
 
 def user_post_save(created, instance, **kwags):

@@ -1,4 +1,4 @@
-{% extends 'flatpages/default.html' %}
+{% extends 'default.html' %}
 {% block profile %}
 
 <body>
@@ -27,14 +27,14 @@
             <th>Фамилия</th>
             <td>{{ user.last_name }}</td>
         </tr>
+        {% if user.get_profile.mobile %}
         <tr>
-            <th>Контактный номер</th>
+            <th>Контактный номер телефона</th>
             <td>
-            {% if user.get_profile.mobile_code and user.get_profile.mobile %}
-                {{ user.get_profile.mobile_code }}{{ user.get_profile.mobile }}
-            {% endif %}
+                {{ user.get_profile.mobile }}
         </td>
         </tr>
+        {% endif %}
         {% if contr %}
         <tr><td colspan="2"></td></tr>
         <tr><th colspan="2"><h4>Информация о компании:</h4></th></tr>
@@ -44,23 +44,23 @@
         </tr>
         <tr>
             <th>Контактный номер</th>
-            <td>{{ contr.contr_phone }}</td>
+            <td>{{ contr.phone }}</td>
         </tr>
         <tr>
             <th>Информация о компании</th>
-            <td>{{ contr.contr_detail }}</td>
+            <td>{{ contr.detail }}</td>
         </tr>
         <tr>
             <th>Область</th>
-            <td>{{ contr.contr_region }}</td>
+            <td>{{ contr.region }}</td>
         </tr>
         <tr>
             <th>Город</th>
-            <td>{{ contr.contr_city}}</td>
+            <td>{{ contr.city}}</td>
         </tr>
         <tr>
             <th>Код города</th>
-            <td>{{ contr.contr_city_code }}</td>
+            <td>{{ contr.city_code }}</td>
         </tr>
     {% endif %}
     </table>

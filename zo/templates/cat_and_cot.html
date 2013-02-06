@@ -1,0 +1,28 @@
+{% extends 'default.html' %}
+{% block profile %}
+
+<body>
+
+<ul class="breadcrumb">
+{% if parents %}
+            <li><a href="/">Домой</a> <span class="divider">/</span></li>
+    {% for position, parent in parents %}
+            <li><a href="{{ parent.slug }}">{{ parent.name }}</a> <span class="divider">/</span></li>
+    {% endfor %}
+{% else %}
+        <li><a href="/">Домой</a> <span class="divider">/</span></li>
+{% endif %}
+    <li class="active">{{ current.name }}</li>
+</ul>
+
+    {% if categories%}
+
+
+        <div align=center>
+        {% for category  in categories %}
+            <h4><a href="{{ category.slug }}">{{category.name}}</a></h4>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}

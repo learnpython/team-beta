@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from profile.models import UserProfile, Contragent, City, CityCode, CityRegion, MobileCode
+from profile.models import UserProfile, Contragent, City, CityRegion, Category
 
 
 class ProfileInline(admin.StackedInline):
@@ -16,9 +16,13 @@ class CustomUserAdmin(UserAdmin):
 
 
 class ContragentAdmin(admin.ModelAdmin):
-    list_display = ('contr_name', 'contr_phone', 'contr_detail', 'contr_region',
-        'contr_city', 'contr_city_code', 'contr_street', 'contr_building',
-        'contr_zipcode', 'ngitude', 'latitude')
+    list_display = ('contr_name', 'phone', 'detail', 'region',
+        'city', 'street1', 'street2', 'building',
+        'zipcode',
+        'longitude', 'latitude',
+        'main_category',
+        'additional_category1',
+        'additional_category2')
     search_filter = ('contr_name')
     search_fields = ['contr_name', ]
 
@@ -27,6 +31,5 @@ admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Contragent, ContragentAdmin)
 admin.site.register(City)
-admin.site.register(CityCode)
 admin.site.register(CityRegion)
-admin.site.register(MobileCode)
+admin.site.register(Category)

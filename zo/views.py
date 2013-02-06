@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from profile.forms import MyUserCreateForm, MyUserForm, MyUserProfileForm
-from profile.models import Contragent
+from profile.models import Category
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-
+from django.core.exceptions import ObjectDoesNotExist
 
 @login_required
 def profile(request):
@@ -66,4 +66,40 @@ def index(request):
             return HttpResponseRedirect(reverse('profile_edit'))
     else:
         form = MyUserCreateForm()
-    return render(request, 'flatpages/default.html', {"form": form})
+    categories = Category.objects.filter(parent_id=None)
+    return render(request, 'index.html', {"form": form, "categories": categories})
+
+
+def show_category(request, cat_name):
+    if request.method == 'POST':
+        form = MyUserCreateForm(request.POST)
+        if form.is_valid():
+            username = form.clean_username()
+            password = form.clean_password2()
+            form.save()
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, 'Успешная регистрация')
+            return HttpResponseRedirect(reverse('profile_edit'))
+    else:
+        form = MyUserCreateForm()
+    try:
+        current = Category.objects.get(slug=cat_name)
+    except ObjectDoesNotExist:
+        messages.error(request, 'Категория не найдена')
+        return render(request, 'index.html')
+    try:
+        parent = Category.objects.get(id=current.parent_id)
+        parent_slug = parent.slug
+    except ObjectDoesNotExist:
+        parent_slug = '/'
+    categories = Category.objects.filter(parent_id=current.id)
+    parents = current.get_parents(current)
+
+    return render(request, 'cat_and_cot.html', {"form": form,
+                                            "categories": categories,
+                                            "current": current,
+                                            "parent_slug": parent_slug,
+                                            "parents": sorted(parents.iteritems(), reverse=True)
+                                            }
+                    )

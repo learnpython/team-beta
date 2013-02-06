@@ -1,0 +1,12 @@
+{% extends 'default.html' %}
+{% block profile %}
+
+    {% if categories%}
+        <div align=center>
+        {% for category  in categories %}
+            <b><a href="{{ category.slug }}">{{category.name}}</a></b>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}
