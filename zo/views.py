@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from profile.forms import MyUserCreateForm, MyUserForm, MyUserProfileForm
-from profile.models import Category
+from profile.models import Category, Contragent
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -95,11 +95,13 @@ def show_category(request, cat_name):
         parent_slug = '/'
     categories = Category.objects.filter(parent_id=current.id)
     parents = current.get_parents(current)
+    businesses = Contragent.objects.filter(main_category=current.id)
 
     return render(request, 'cat_and_cot.html', {"form": form,
                                             "categories": categories,
                                             "current": current,
                                             "parent_slug": parent_slug,
-                                            "parents": sorted(parents.iteritems(), reverse=True)
+                                            "parents": sorted(parents.iteritems(), reverse=True),
+                                            "businesses": businesses,
                                             }
                     )
