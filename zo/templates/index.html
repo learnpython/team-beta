@@ -4,7 +4,7 @@
     {% if categories%}
         <div align="center">
         {% for category  in categories %}
-            <h4><a href="{{ category.slug }}">{{category.name}}</a></h4>
+            <h4><a href="{% url show_category category.slug %}">{{category.name}}</a></h4>
         {% endfor %}
         </div>
     {% endif %}

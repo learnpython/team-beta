@@ -6,13 +6,13 @@
 <ul class="breadcrumb">
 {% if parents %}
             <li><a href="/">Домой</a> <span class="divider">/</span></li>
-    {% for position, parent in parents %}
-            <li><a href="/{{ parent.slug }}">{{ parent.name }}</a> <span class="divider">/</span></li>
+    {% for parent in parents %}
+            <li><a href="{% url show_category parent.slug %}">{{ parent.name }}</a> <span class="divider">/</span></li>
     {% endfor %}
 {% else %}
         <li><a href="/">Домой</a> <span class="divider">/</span></li>
 {% endif %}
-    <li class="active"><li><a href="/{{ current.slug }}">{{ current.name }}</a></li>
+    <li class="active"><li><a href="{% url show_category current.slug %}">{{ current.name }}</a></li>
 </ul>
 
 <h2>{{ b.contr_name }}</h2>
@@ -28,40 +28,41 @@
 <div id="map" style="width: 600px; height: 400px"></div>
 
 <script type="text/javascript">
-  ymaps.ready(init);
-    var myMap,
-        myPlacemark;
-
     function init(){
-        myMap = new ymaps.Map ("map", {
-            center: [{{b.latitude|floatformat}}, {{b.longitude|floatformat}}],
-            zoom: 9,
-        });
+        var myMap,
+            myPlacemark,
+            zoom=14;
+            myMap = new ymaps.Map ("map", {
+                center: [50, 30],
+                zoom: 5,
+            });
+        {% if b.latitude %}
+            myPlacemark = new ymaps.Placemark([{{b.latitude|floatformat}}, {{b.longitude|floatformat}}], {
+                content: '{{b.contr_name}}',
+                balloonContent: '{{b.phone}} {{b.detail}}'
+            });
 
-        myPlacemark = new ymaps.Placemark([{{b.latitude|floatformat}}, {{b.longitude|floatformat}}], {
-            content: '{{b.contr_name}}',
-            balloonContent: '{{b.phone}} {{b.detail}}'
-        });
-
-        myMap.geoObjects.add(myPlacemark);
-
-        myMap.controls.add(new ymaps.control.ZoomControl()
-);
-    }
-</script>
-
-// Кусок кода, который должен выполнять геокодирование по адресу. Но почему-то пока этого не делает
-<script type="text/javascript">
-var myGeocoder = ymaps.geocode('{{b.city}}, {{b.street1}} {{b.street2}}, {{b.building}}');
-myGeocoder.then(
-    function (res) {
-        var business = res.geoObjects.get(0)
-        nearest.properties.set('iconContent', {{b.contr_name}});
-        myMap.geoObjects.add(res.geoObjects);
-    function (err) {
-        alert('Координаты не определены');
-    }
-);
+            myMap.geoObjects.add(myPlacemark);    
+            myMap.setCenter([{{b.latitude|floatformat}}, {{b.longitude|floatformat}}], zoom)
+        {% else %}
+            var myGeocoder = ymaps.geocode('{{b.city}}, {{b.street1}} {{b.street2}}, {{b.building}}');
+            myGeocoder.then(
+                function (res) {
+                    var business = res.geoObjects.get(0)
+                    business.properties.set('iconContent', '{{b.contr_name}}');
+                    myMap.geoObjects.add(business);
+                    console.log(business.geometry);
+                    myMap.setCenter(business.geometry.getCoordinates(), zoom);
+                },
+                function (err) {
+                    alert('Координаты не определены');
+                }
+            );
+        {% endif %}
+        
+        myMap.controls.add(new ymaps.control.ZoomControl());
+        }
+      ymaps.ready(init);
 </script>
 
 {% endblock %}

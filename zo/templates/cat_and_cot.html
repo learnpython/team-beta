@@ -6,8 +6,8 @@
 <ul class="breadcrumb">
 {% if parents %}
             <li><a href="/">Домой</a> <span class="divider">/</span></li>
-    {% for position, parent in parents %}
-            <li><a href="{{ parent.slug }}">{{ parent.name }}</a> <span class="divider">/</span></li>
+    {% for parent in parents %}
+            <li><a href="{% url show_category parent.slug %}">{{ parent.name }}</a> <span class="divider">/</span></li>
     {% endfor %}
 {% else %}
         <li><a href="/">Домой</a> <span class="divider">/</span></li>
@@ -19,7 +19,7 @@
 
         <div align="center">
         {% for category  in categories %}
-            <h4><a href="/{{ category.slug }}">{{category.name}}</a></h4>
+            <h4><a href="{% url show_category category.slug %}">{{category.name}}</a></h4>
         {% endfor %}
         </div>
     {% endif %}

@@ -24,29 +24,27 @@ class Category(models.Model):
         verbose_name = 'Категория услуг'
         verbose_name_plural = 'Категории услуг'
 
-    def get_parents(self, instance):
-        if instance.parent:
-            current = instance
-            parents = {}
-            position = 0
+    def get_parents(self):
+        if self.parent:
+            current = self
+            parents = []
             while current.parent is not None:
-                parents[position] = current.parent
+                parents.append(current.parent)
                 current = current.parent
-                position += 1
             return parents
-        return {}
+        return []
 
     def __unicode__(self):
         if self.parent:
-            return self.parent.name + ' -> ' + self.name
+            return ' -> '.join([par.name for par in self.get_parents()[::-1]] + [self.name])
         return self.name
 
 
 class Contragent(models.Model):
     # Здесь перечисляем уникальные поля которые Контр заполняет руками
-    main_category = models.ForeignKey('Category', related_name='Основна категория')
-    additional_category1 = models.ForeignKey('Category', blank=True, null=True, related_name='Дополнительная категория')
-    additional_category2 = models.ForeignKey('Category', blank=True, null=True, related_name='Дополнительная категория 2')
+    main_category = models.ForeignKey('Category', verbose_name='Основна категория')
+    additional_categories = models.ManyToManyField('Category', blank=True, null=True, 
+        verbose_name=u'Дополнительные категории', related_name='additional_contragents')
     contr_name = models.CharField('Название', max_length=100)
     phone = models.CharField('Телефон', max_length=20)
     detail = models.TextField('Описание')
@@ -56,8 +54,9 @@ class Contragent(models.Model):
     street2 = models.CharField('Улица 2', max_length=100, blank=True)
     building = models.CharField('Номер дома', max_length=3, blank=True)
     zipcode = models.CharField('Индекс', max_length=5, blank=True)
-    longitude = models.FloatField('Долгота', max_length=10, blank=True, default=30.0)
-    latitude = models.FloatField('Широта', max_length=10, blank=True, default=50.0)
+    longitude = models.FloatField('Долгота', max_length=10, blank=True, null=True)
+    latitude = models.FloatField('Широта', max_length=10, blank=True, null=True)
+    visits = models.PositiveIntegerField('Посещения', default=0)
 
     def __unicode__(self):
         return self.contr_name

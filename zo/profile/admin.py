@@ -21,10 +21,14 @@ class ContragentAdmin(admin.ModelAdmin):
         'zipcode',
         'longitude', 'latitude',
         'main_category',
-        'additional_category1',
-        'additional_category2')
+        "show_additional_categories",
+        )
     search_filter = ('contr_name')
     search_fields = ['contr_name', ]
+
+    def show_additional_categories(self, obj):
+        return ', '.join([cat.name for cat in obj.additional_categories.all()])
+
 
 
 admin.site.unregister(User)
