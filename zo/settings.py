@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     'flatpages_tinymce',
     # Добавим обработку профиля пользователей
     'profile',
+    'contragents',
 )
 # Следующая строка необходима для работы новой модели юзера
 AUTH_PROFILE_MODULE = "profile.UserProfile"
