@@ -134,6 +134,7 @@ WSGI_APPLICATION = 'wsgi.application'
 TEMPLATE_DIRS = (
     #расположение наших темплейтов
     os.path.join(PROJECT_PATH, "templates"),
+    os.path.join(PROJECT_PATH, "profile/templates"),
 )
 
 

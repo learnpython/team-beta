@@ -1,13 +1,12 @@
 {% extends 'default.html' %}
-{% block profile %}
+{% block content %}
 
     {% if categories%}
-        <div align="center">
-        <ul>
+        <div class="center">
         {% for category  in categories %}
-            <li><a href="{% url show_category category.slug %}">{{category.name}}</a></li>
+            <p><a href="{% url show_category category.slug %}">{{category.name}}</a></p>
         {% endfor %}
-        `</ul>
+        </ul>
         </div>
     {% endif %}
 

@@ -1,5 +1,5 @@
 {% extends 'default.html' %}
-{% block profile %}
+{% block content %}
 
 <ul class="breadcrumb">
 {% if parents %}
@@ -40,7 +40,7 @@
                 balloonContent: '{{b.phone}} {{b.detail}}'
             });
 
-            myMap.geoObjects.add(myPlacemark);    
+            myMap.geoObjects.add(myPlacemark);
             myMap.setCenter([{{b.latitude|floatformat}}, {{b.longitude|floatformat}}], zoom)
         {% else %}
             var myGeocoder = ymaps.geocode('{{b.city}}, {{b.street1}} {{b.street2}}, {{b.building}}');
@@ -57,7 +57,7 @@
                 }
             );
         {% endif %}
-        
+
         myMap.controls.add(new ymaps.control.ZoomControl());
         }
       ymaps.ready(init);
