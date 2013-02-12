@@ -1,0 +1,68 @@
+{% extends 'default.html' %}
+{% block content %}
+
+<h3 align="center">Профиль</h3>
+
+<!-- <div>
+    <input class="btn btn-primary" style="clear: right; width: 30%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Войти"/>
+</div>
+ -->
+<div class="span7">
+    <table class="table">
+        <tr><th colspan="2"><h4>Информация о пользователе:</h4><a href="{% url profile_edit %}">редактировать</a></th></tr>
+        <tr>
+            <th>Логин</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Имя</th>
+            <td>{{ user.first_name }}</td>
+        </tr>
+        <tr>
+            <th>Фамилия</th>
+            <td>{{ user.last_name }}</td>
+        </tr>
+        {% if user.get_profile.mobile %}
+        <tr>
+            <th>Контактный номер телефона</th>
+            <td>
+                {{ user.get_profile.mobile }}
+        </td>
+        </tr>
+        {% endif %}
+        {% if contr %}
+        <tr><td colspan="2"></td></tr>
+        <tr><th colspan="2"><h4>Информация о компании:</h4></th></tr>
+        <tr>
+            <th>Название</th>
+            <td>{{ contr.contr_name }}</td>
+        </tr>
+        <tr>
+            <th>Контактный номер</th>
+            <td>{{ contr.phone }}</td>
+        </tr>
+        <tr>
+            <th>Информация о компании</th>
+            <td>{{ contr.detail }}</td>
+        </tr>
+        <tr>
+            <th>Область</th>
+            <td>{{ contr.region }}</td>
+        </tr>
+        <tr>
+            <th>Город</th>
+            <td>{{ contr.city}}</td>
+        </tr>
+        <tr>
+            <th>Код города</th>
+            <td>{{ contr.city_code }}</td>
+        </tr>
+    {% endif %}
+    </table>
+</div>
+
+{% endblock %}
