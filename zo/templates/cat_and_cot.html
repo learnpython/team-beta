@@ -1,8 +1,6 @@
 {% extends 'default.html' %}
 {% block profile %}
 
-<body>
-
 <ul class="breadcrumb">
 {% if parents %}
             <li><a href="/">Домой</a> <span class="divider">/</span></li>
@@ -16,10 +14,9 @@
 </ul>
 
     {% if categories%}
-
         <div align="center">
         {% for category  in categories %}
-            <h4><a href="{% url show_category category.slug %}">{{category.name}}</a></h4>
+            <div><a href="{% url show_category category.slug %}">{{category.name}}</a></div>
         {% endfor %}
         </div>
     {% endif %}
