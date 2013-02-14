@@ -14,6 +14,9 @@ class UserProfile(models.Model):
     class Meta:
         ordering = ['user']
 
+    def __unicode__(self):
+        return self.user.username
+
 
 def user_post_save(created, instance, **kwags):
     if created:

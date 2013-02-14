@@ -13,7 +13,7 @@
     <li class="active"><li><a href="{% url show_category current.slug %}">{{ current.name }}</a></li>
 </ul>
 
-<h2>{{ b.contr_name }}</h2>
+<h2>{{ b.name }}</h2>
 <div>
     <ul>
         <li><a href="tel:{{b.phone}}">Телефон: {{b.phone}}</a></li>
@@ -36,7 +36,7 @@
             });
         {% if b.latitude %}
             myPlacemark = new ymaps.Placemark([{{b.latitude|floatformat}}, {{b.longitude|floatformat}}], {
-                content: '{{b.contr_name}}',
+                content: '{{b.name}}',
                 balloonContent: '{{b.phone}} {{b.detail}}'
             });
 
@@ -47,7 +47,7 @@
             myGeocoder.then(
                 function (res) {
                     var business = res.geoObjects.get(0)
-                    business.properties.set('iconContent', '{{b.contr_name}}');
+                    business.properties.set('iconContent', '{{b.name}}');
                     myMap.geoObjects.add(business);
                     console.log(business.geometry);
                     myMap.setCenter(business.geometry.getCoordinates(), zoom);

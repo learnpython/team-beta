@@ -45,7 +45,7 @@ TIME_ZONE = 'Europe/Kiev'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 #LANGUAGE_CODE = 'en-us'
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru-RU'
 
 SITE_ID = 1
 
@@ -145,21 +145,19 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-    # Добавим flatpages
     'django.contrib.flatpages',
+    # Установленные приложения
     'annoying',
     'debug_toolbar',
     'django_extensions',
-    # Добавим поддержку tinymce
-    'tinymce',
     'flatpages_tinymce',
-    # Добавим обработку профиля пользователей
-    'profile',
+    'south',
+    'tinymce',
+    # Написанные приложение
     'contragents',
+    'profile',
+    'timeslots',
 )
 # Следующая строка необходима для работы новой модели юзера
 AUTH_PROFILE_MODULE = "profile.UserProfile"

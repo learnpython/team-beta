@@ -41,7 +41,7 @@ class MyUserForm(ModelForm):
 
 #     class Meta:
 #         model = Contragent
-#         fields = ("contr_name",
+#         fields = ("name",
 #             "contr_phone",
 #             "contr_detail",
 #             "contr_region",

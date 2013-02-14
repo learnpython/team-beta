@@ -4,3 +4,4 @@ django-flatpages-tinymce==0.1.1
 django-tinymce==1.5.1b4
 django-debug-toolbar==0.9.4
 django-annoying==0.7.6
+South==0.7.6

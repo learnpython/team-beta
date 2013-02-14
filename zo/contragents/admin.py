@@ -4,15 +4,15 @@ from contragents.models import Contragent, City, CityRegion, Category
 
 
 class ContragentAdmin(admin.ModelAdmin):
-    list_display = ('contr_name', 'phone', 'detail', 'region',
+    list_display = ('name', 'phone', 'detail', 'region',
         'city', 'street1', 'street2', 'building',
         'zipcode',
         'longitude', 'latitude',
         'main_category',
         "show_additional_categories",
         )
-    search_filter = ('contr_name')
-    search_fields = ['contr_name', ]
+    search_filter = ('name')
+    search_fields = ['name', ]
 
     def show_additional_categories(self, obj):
         return ', '.join([cat.name for cat in obj.additional_categories.all()])

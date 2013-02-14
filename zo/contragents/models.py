@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField('Name', max_length=40, unique=True)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='родительская категория')
@@ -31,7 +32,7 @@ class Contragent(models.Model):
     main_category = models.ForeignKey('Category', verbose_name='Основна категория')
     additional_categories = models.ManyToManyField('Category', blank=True, null=True,
         verbose_name=u'Дополнительные категории', related_name='additional_contragents')
-    contr_name = models.CharField('Название', max_length=100)
+    name = models.CharField('Название', max_length=100)
     phone = models.CharField('Телефон', max_length=20)
     detail = models.TextField('Описание')
     region = models.ForeignKey('CityRegion')
@@ -45,10 +46,10 @@ class Contragent(models.Model):
     visits = models.PositiveIntegerField('Посещения', default=0)
 
     def __unicode__(self):
-        return self.contr_name
+        return self.name
 
     class Meta:
-        ordering = ['contr_name']
+        ordering = ['name']
 
 
 # Создадим классы со статическими данными которые будут выбираться из списков
