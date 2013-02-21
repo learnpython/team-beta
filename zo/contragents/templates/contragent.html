@@ -1,27 +1,29 @@
-{% extends 'default.html' %}
-{% block content %}
+{% extends 'default.html' %} {% block content %}
 
 <ul class="breadcrumb">
-{% if parents %}
-            <li><a href="/">Домой</a> <span class="divider">/</span></li>
-    {% for parent in parents %}
-            <li><a href="{% url show_category parent.slug %}">{{ parent.name }}</a> <span class="divider">/</span></li>
-    {% endfor %}
-{% else %}
-        <li><a href="/">Домой</a> <span class="divider">/</span></li>
-{% endif %}
-    <li class="active"><li><a href="{% url show_category current.slug %}">{{ current.name }}</a></li>
+	{% if parents %}
+	<li><a href="/">Домой</a> <span class="divider">/</span></li> 
+		{% for parent in parents %}
+			<li><a href="{% url show_category parent.slug %}">{{ parent.name }}</a> <span class="divider">/</span></li> 
+		{% endfor %} 
+	{% else %}
+		<li><a href="/">Домой</a> <span class="divider">/</span></li> 
+	{% endif	%}
+	<li class="active">
+	<li><a href="{% url show_category current.slug %}">{{ current.name }}</a></li>
 </ul>
 
 <h2>{{ b.name }}</h2>
 <div>
-    <ul>
-        <li><a href="tel:{{b.phone}}">Телефон: {{b.phone}}</a></li>
-        <li>Адрес: {{b.street1}} {{b.street2}} {{b.building}}
-    </ul>
+	<ul>
+		<li><a href="tel:{{b.phone}}">Телефон: {{b.phone}}</a></li>
+		<li>Адрес: {{b.street1}} {{b.street2}} {{b.building}}
+	</ul>
 </div>
 
-<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+<script
+	src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU"
+	type="text/javascript"></script>
 
 <div id="map" style="width: 600px; height: 400px"></div>
 
@@ -37,8 +39,9 @@
         {% if b.latitude %}
             myPlacemark = new ymaps.Placemark([{{b.latitude|floatformat}}, {{b.longitude|floatformat}}], {
                 content: '{{b.name}}',
-                balloonContent: '{{b.phone}} {{b.detail}}'
-            });
+                balloonContent: '{{b.phone}} {{b.detail}}'},
+                {preset: 'twirl#blueStretchyIcon'}
+            );
 
             myMap.geoObjects.add(myPlacemark);
             myMap.setCenter([{{b.latitude|floatformat}}, {{b.longitude|floatformat}}], zoom)
@@ -48,8 +51,8 @@
                 function (res) {
                     var business = res.geoObjects.get(0)
                     business.properties.set('iconContent', '{{b.name}}');
+                    business.options.set('preset', 'twirl#blueStretchyIcon');
                     myMap.geoObjects.add(business);
-                    console.log(business.geometry);
                     myMap.setCenter(business.geometry.getCoordinates(), zoom);
                 },
                 function (err) {
