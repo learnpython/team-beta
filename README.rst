@@ -38,3 +38,11 @@ Windows:
     If you run your project on OS windows with runserver, 
     you need add --nostatic key when start runserver
     ex. python manage.py runserver --nostatic
+    
+Search Indexes:
+	To rebuild a search indexes run
+		python zo/manage.py rebuild_index
+	To update the index run 
+		python zo/manage.py update_index
+	
+	
