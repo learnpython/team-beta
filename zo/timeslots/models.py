@@ -4,6 +4,12 @@ from contragents.models import Contragent
 from profile.models import UserProfile
 
 
+class TimeSlotSettings(models.Model):
+    weekdays = None
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+
 class Timeslot(models.Model):
     contragent = models.ForeignKey(Contragent, verbose_name=u'Контрагент')
     date = models.DateField(u"Дата")

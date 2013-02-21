@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'', include('contragents.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^search/', include('haystack.urls')),
 )
 
 if settings.DEBUG:
