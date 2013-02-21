@@ -1,3 +1,26 @@
 .center {
-    text-align: center;
+	text-align: center;
+}
+
+.calendar {
+	display: block;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.calendar-today {
+	display: block;
+	line-height: 32px;
+	font-weight: bold;
+	color: #e2e2e2;
+	text-align: center;
+	text-shadow: 0 -1px black;
+	background: #333;
+	background: rgba(0, 0, 0, 0.35);
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #313131;
+	box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.calendar-available {
+	background: green;
 }

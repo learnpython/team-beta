@@ -7,6 +7,9 @@ from profile.forms import MyUserCreateForm
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from calendar import HTMLCalendar, Calendar
+from datetime import date, datetime, timedelta
+from timeslots.models import TimeSlotDay
 
 
 def show_category(request, cat_name):
@@ -67,8 +70,55 @@ def contragent(request, cat_name, contr_id):
     parents = category.get_parents()
     business.visits += 1
     business.save()
+    calendar = TScalendar(business)
     return render(request, 'contragent.html',
                         {"b": business,
                         "current": category,
                         "parents": parents[::-1],
+                        "calendar": calendar.formatmonth(2013, 02, withyear=True),
                         })
+
+
+class TScalendar(HTMLCalendar):
+    
+    def __init__(self, business):
+        self.firstweekday = 0
+        self.business = business
+        self.year = date.today().year
+        self.month = date.today().month
+        self.available_days_list = []
+        
+    def available_days(self):
+        if not len(self.available_days_list):
+            cal = Calendar()
+            month_dates = cal.itermonthdates(self.year, self.month)
+            for day in month_dates:
+                timeslots = None
+                if day > date.today():
+                    timeslots = TimeSlotDay.objects.filter(date=day, aviability=True)
+                if day == date.today():
+                    timeslots = TimeSlotDay.objects.filter(date=day, end_time__gte=datetime.now() + timedelta(hours=1), aviability=True)
+                if timeslots:
+                    self.available_days_list.append(day.day)
+        return self.available_days_list
+    
+    def formatday(self, day, weekday):
+        if day != 0:
+            cssclass = self.cssclasses[weekday]
+            body = ['<ul>']
+            if date.today() == date(self.year, self.month, day):
+                cssclass += ' calendar-today'
+                body.append('<li>Сегодня</li>')
+            if day in self.available_days():
+                cssclass += ' calendar-available'
+                body.append('<li>Есть свободное время</li>')
+            body.append('</ul>')
+            return self.day_cell(cssclass, '%d %s' % (day, ''.join(body)))
+        return self.day_cell('noday', '&nbsp;')
+    
+    def formatmonth(self, year, month, withyear=True):
+        self.year, self.month = year, month
+        return super(TScalendar, self).formatmonth(year, month, withyear)
+    
+    def day_cell(self, cssclass, body):
+        return '<td class="%s">%s</td>' % (cssclass, body)

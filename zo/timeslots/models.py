@@ -2,19 +2,25 @@
 from django.db import models
 from contragents.models import Contragent
 from profile.models import UserProfile
+from datetime import datetime
 
 
-class TimeSlotSettings(models.Model):
-    weekdays = None
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+class TimeSlotDay(models.Model):
+    contragent = models.ForeignKey(Contragent, verbose_name=u'Контрагент')
+    date = models.DateField(u"Дата")
+    start_time = models.TimeField(u'Время начала работы')
+    end_time = models.TimeField(u'Время конца работы')
+    duration = models.IntegerField(u'Длительность сессии', default=30)
+    capacity = models.IntegerField(u"Максимальное количество человек на сессию")
+    aviability = models.BooleanField('Возможность записи на этот день', default=False)
+    
+    def __unicode__(self):
+        return datetime.strftime(self.date, '%d.%m.%y')
 
 
 class Timeslot(models.Model):
-    contragent = models.ForeignKey(Contragent, verbose_name=u'Контрагент')
-    date = models.DateField(u"Дата")
+    day = models.ForeignKey(TimeSlotDay, verbose_name=u'Настрйки на день')
     time = models.TimeField(u"Время")
-    duration = models.IntegerField(u"Длительность сессии")
     capacity = models.IntegerField(u"Максимальное количество человек на сессию")
 
     class Meta:
@@ -22,9 +28,9 @@ class Timeslot(models.Model):
         verbose_name_plural = u'Таймслоты'
 
     def __unicode__(self):
-        return (self.date.strftime('%d.%m.%Y') + ' ' +
+        return (self.day.date.strftime('%d.%m.%Y') + ' ' +
             self.time.strftime('%H:%M:%S') + u'. Длительность сессии: ' +
-            str(self.duration) + u' минут. Максимальная емкость: ' + str(self.capacity))
+            str(self.day.duration) + u' минут. Максимальная емкость: ' + str(self.capacity))
 
 
 class Appointment(models.Model):
