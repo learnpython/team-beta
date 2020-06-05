@@ -1,4 +1,4 @@
 gunicorn==0.16.1
-django==1.4.3
+django==1.11.29
 django-flatpages-tinymce==0.1.1
 django-tinymce==1.5.1b4
